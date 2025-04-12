@@ -16,7 +16,7 @@ import Notifications from "./Notifications";
 const StudentDashboard = () => {
   const [selectedComponent, setSelectedComponent] = useState(<Profile />);
   const [selectedMenu, setSelectedMenu] = useState("Profile");
-  const profilePicUrl ='https://cdn.pixabay.com/photo/2025/04/08/10/42/landscape-9521261_1280.jpg';
+  const profilePicUrl = 'https://cdn.pixabay.com/photo/2025/04/08/10/42/landscape-9521261_1280.jpg';
 
   const menuItems = [
     { id: "Home", icon: <MdDashboard size={24} />, label: "Home", component: <Home /> },
@@ -33,21 +33,26 @@ const StudentDashboard = () => {
       <aside className="w-60 bg-gray-200 text-black flex flex-col py-6 space-y-4 min-h-screen border-r border-black">
         <h2 className="text-xl font-bold text-center">Dashboard</h2>
         <nav className="flex flex-col space-y-2 mt-[50px] items-center">
-          {menuItems.map((item) => (
-            <button
-              key={item.id}
-              className={`flex items-center space-x-5 px-4 py-5 rounded-md transition w-48 justify-start ${selectedMenu === item.id ? "bg-gray-700 text-white" : "hover:bg-gray-200"
-                }`}
-              onClick={() => {
-                setSelectedComponent(item.component);
-                setSelectedMenu(item.id);
-              }}
-            >
-              {item.icon}
-              <span className="text-lg">{item.label}</span>
-            </button>
-          ))}
-        </nav>
+  {menuItems.map((item) => (
+    <button
+      key={item.id}
+      className={`flex items-center space-x-5 px-4 py-5 rounded-md transition w-48 justify-start
+        ${
+          selectedMenu === item.id
+            ? "bg-gray-700 text-white"
+            : "bg-transparent text-black hover:bg-gray-300"
+        }`}
+      onClick={() => {
+        setSelectedComponent(item.component);
+        setSelectedMenu(item.id);
+      }}
+    >
+      {item.icon}
+      <span className="text-lg">{item.label}</span>
+    </button>
+  ))}
+</nav>
+
 
 
       </aside>
