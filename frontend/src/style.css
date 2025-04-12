@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+.service{
+    background: url('./Assets/bghome.svg');
+    background-size: contain;
+}
