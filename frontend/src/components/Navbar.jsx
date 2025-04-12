@@ -9,6 +9,7 @@ const Navbar = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate();
   const handleAuthClick = ()=>{
+    Cookies.remove("loginstatus")
     if(isLoggedIn){
       Cookies.remove("token")
       Cookies.remove("user_role")
@@ -19,18 +20,10 @@ const Navbar = () => {
       navigate("/login")
     }
   }
-  // const token = Cookies.get("token");
-  // console.log(token)
-
-  // const handleLogout = () => {
-  //   Cookies.remove("token");
-  //   navigate("/login");
-  // };
-
+  const loginstatus=Cookies.get("loginstatus")
   return (
     <div>
       <nav id="navigationbar" className="bg-white text-black p-4 flex justify-between items-center shadow-md shadow-gray-300">
-        {/* Logo + Name */}
         <div className="flex items-center space-x-3">
           <Link to="/" className="flex items-center space-x-3">
             <div className="w-9 h-9 bg-white rounded-full flex justify-center items-center">
@@ -43,8 +36,6 @@ const Navbar = () => {
             </span>
           </Link>
         </div>
-
-        {/* Navbar Sections: Home, About, Contact, Privacy */}
         <div className="flex space-x-8">
           <NavLink
             to="/"
@@ -79,30 +70,11 @@ const Navbar = () => {
             Privacy
           </NavLink>
         </div>
-
-        {/* Login/Logout Button */}
-        {/* <div className="relative">
-          {token ? (
-            <button
-              onClick={handleLogout}
-              className="bg-red-600 text-white font-semibold px-6 py-2 rounded-md hover:bg-red-700 transition duration-300"
-            >
-              Logout
-            </button>
-          ) : (
-            <Link
-              to="/login"
-              className="bg-blue-600 text-white font-semibold px-6 py-2 rounded-md hover:bg-blue-700 transition duration-300"
-            >
-              Login
-            </Link>
-          )}
-        </div> */}
         <button
         onClick={handleAuthClick}
         className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
       >
-        {isLoggedIn ? "Logout" : "Login"}
+        {loginstatus ? "Logout" : "Login"}
       </button>
       </nav>
     </div>

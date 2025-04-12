@@ -25,8 +25,8 @@ const Login = () => {
       console.log(response)
       const { token, role } = response.data;
       console.log(token,role)
-      // Cookies.set("verification_token", token, { expires: 7 });
-      // Cookies.set("user_role", role, { expires: 7 });
+      Cookies.set("loginstatus", true, { expires: 7 });
+      Cookies.set("user_role", role, { expires: 7 });
       toast.success("Logged in successfully!", { position: "top-right" });
       if (role === "user") {
         navigate("/studentDashboard", { replace: true });
