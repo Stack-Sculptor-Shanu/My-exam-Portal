@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 .service{
-    background: url('./Assets/bghome.svg');
-    background-size: contain;
+    background: url('./Assets/bg.svg');
+    background-size: cover;
 }
+/* nav{
+    background: url('./Assets/bghome.svg');
+} */

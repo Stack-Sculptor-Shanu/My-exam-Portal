@@ -5,8 +5,9 @@ import Cookies from "js-cookie";
 
 const GoTo = () => {
   const navigate = useNavigate();
+  const role = Cookies.get("user_role");
+
   const navigateToDashboard = () => {
-    const role = Cookies.get("user_role");
     if (role === "admin") {
       navigate("/aDashboard");
     } else if (role === "user") {
@@ -15,6 +16,11 @@ const GoTo = () => {
       console.log("No role found. User might not be logged in.");
     }
   };
+
+  // Don't render the component if there's no user_role cookie
+  if (!role) {
+    return null;
+  }
 
   return (
     <div className="fixed bottom-6 right-6 z-50 group">

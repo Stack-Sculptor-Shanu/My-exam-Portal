@@ -8,10 +8,9 @@ const LiveFaceDetection = ({ stopCamera }) => {
   const [isModelLoaded, setIsModelLoaded] = useState(false);
   const intervalRef = useRef(null);
 
-  // Load face-api.js models
   useEffect(() => {
     const loadModels = async () => {
-      await faceapi.nets.ssdMobilenetv1.loadFromUri('/models'); // Assuming models are in public/models folder
+      await faceapi.nets.ssdMobilenetv1.loadFromUri('/models'); 
       await faceapi.nets.faceLandmark68Net.loadFromUri('/models');
       await faceapi.nets.faceRecognitionNet.loadFromUri('/models');
       setIsModelLoaded(true);
@@ -33,8 +32,6 @@ const LiveFaceDetection = ({ stopCamera }) => {
         const detections = await faceapi.detectAllFaces(video)
           .withFaceLandmarks()
           .withFaceDescriptors();
-
-        // If more than one person is detected, show a warning
         if (detections.length > 1) {
           setWarning('Warning: More than one person detected!');
           setTimeout(() => {
@@ -50,13 +47,13 @@ const LiveFaceDetection = ({ stopCamera }) => {
       intervalRef.current = setInterval(() => detectFaces(), 100);
     } else {
       if (intervalRef.current) {
-        clearInterval(intervalRef.current);  // Stop face detection interval
+        clearInterval(intervalRef.current);
       }
     }
 
     return () => {
       if (intervalRef.current) {
-        clearInterval(intervalRef.current);  // Cleanup face detection interval on unmount or stopCamera change
+        clearInterval(intervalRef.current); 
       }
     };
   }, [stopCamera, isModelLoaded]);

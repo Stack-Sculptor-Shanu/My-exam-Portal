@@ -1,51 +1,74 @@
 import React from "react";
 import { motion } from "framer-motion";
 import privacyimg from "../../Assets/privacy.svg";
+import { FiDownload } from "react-icons/fi";
 
-const listItemVariants = {
-  hidden: { opacity: 0, x: -20 },
-  visible: (index) => ({
-    opacity: 1,
-    x: 0,
-    transition: { delay: index * 0.2, duration: 0.5 },
-  }),
-};
+const highlights = [
+  "We collect only required student data (name, email, ID).",
+  "Monitoring is active only during exams with student consent.",
+  "All data and recordings are securely encrypted and time-bound.",
+  "Only authorized personnel can access student info.",
+  "AI flags behavior, but humans always review before decisions.",
+  "Data auto-deletes after 30 to 90 days based on type.",
+  "Users will be notified of any privacy policy changes.",
+];
 
 const Privacy = () => {
-  const rules = [
-    "Exam content must remain confidential and secure.",
-    "Personal student data should be protected and encrypted.",
-    "Online monitoring should respect privacy laws and policies.",
-    "Secure communication channels must be used for exam-related matters.",
-    "Anonymous grading should be implemented where possible.",
-  ];
-
   return (
-    <div className="flex flex-col min-h-screen md:flex-row items-center justify-between p-8 bg-gray-100 rounded-xl shadow-lg">
-      {/* Privacy Rules */}
-      <div className="md:w-1/2 space-y-4">
-        <h2 className="text-4xl font-bold text-gray-800">Exam Privacy Rules</h2>
-        <ul className="text-gray-600 text-[20px] space-y-2">
-          {rules.map((rule, index) => (
-            <motion.li
-              key={index}
-              className="flex items-center"
-              variants={listItemVariants}
-              initial="hidden"
-              animate="visible"
-              custom={index}
-            >
-              🎯 {rule}
-            </motion.li>
-          ))}
-        </ul>
-      </div>
+    <section className="relative min-h-screen px-6 py-16 bg-gray-100 dark:bg-gray-900 transition-colors duration-300 overflow-hidden">
+      {/* Decorative Background SVG */}
+      <img
+        src={privacyimg}
+        alt="Privacy Illustration"
+        className="absolute opacity-10 w-[700px] right-0 bottom-0 pointer-events-none hidden md:block dark:brightness-75"
+      />
 
-      {/* SVG Image */}
-      <div className="md:w-1/2 flex justify-center mt-6 md:mt-0">
-        <img src={privacyimg} alt="Privacy Illustration" className="w-[35vw]" />
+      <div className="relative z-10 max-w-4xl mx-auto text-center">
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-4xl font-bold mb-8 text-gray-800 dark:text-white"
+        >
+          Privacy Highlights
+        </motion.h2>
+
+        {/* Quick Points */}
+        <div className="space-y-4 text-gray-700 dark:text-gray-300 text-lg text-left md:text-center">
+          {highlights.map((point, i) => (
+            <motion.p
+              key={i}
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1, duration: 0.4 }}
+              className="flex items-center gap-2 justify-start md:justify-center"
+            >
+              <span className="text-blue-500">✔</span> {point}
+            </motion.p>
+          ))}
+        </div>
+
+        {/* Download Button */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="mt-10"
+        >
+          <a
+            href="/privacy-policy.pdf" // Replace with actual PDF path
+            download
+            className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-lg text-lg transition-all duration-300"
+          >
+            <FiDownload className="text-xl" />
+            Download Full Privacy Policy
+          </a>
+        </motion.div>
       </div>
-    </div>
+    </section>
   );
 };
 
