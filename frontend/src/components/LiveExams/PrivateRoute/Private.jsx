@@ -1,27 +1,35 @@
 import { useEffect, useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
-import Cookies from 'js-cookie'
+import { Navigate } from 'react-router-dom';
 import axiosInstance from '../../../Utilities/axiosInstance';
 
-const Private = ({children}) => {
-    const [loading,setLoading] = useState(true)
-    const [auth,setAuth] = useState(false)
-    useEffect(()=>{
-        axiosInstance.get('/findme').then((response)=>{
-            const data = response.data
-            console.log(data)
-            setAuth(true),
-            setLoading(false)
-        }).catch(()=>{
-            setAuth(false),
-            setLoading(false)
-        },[])
-    })
-    if(loading) return <p>loading...</p>
-    return auth?children : <Navigate to = '/login'/>
-    // const navigate = useNavigate();
-//     const token=Cookies.get("verification_token")
-// return token?children:<Navigate to="/"/>
-}
+const Private = ({ children, allowedRoles }) => {
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null); // Will store user data like role
+
+  useEffect(() => {
+    axiosInstance
+      .get('/findme')
+      .then((res) => {
+        const userData = res.data;
+        setUser(userData);
+      })
+      .catch(() => {
+        setUser(null);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) return <p className="text-center py-10">Loading...</p>;
+
+  if (!user) return <Navigate to="/login" />;
+
+  if (allowedRoles && !allowedRoles.includes(user.role)) {
+    return <Navigate to="/unauthorized" />;
+  }
+
+  return children;
+};
 
 export default Private;

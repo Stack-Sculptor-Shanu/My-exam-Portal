@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const MyExam = () => {
   // Sample Exam Data
@@ -75,9 +76,11 @@ const MyExam = () => {
                     </button>
                   )}
                   {exam.status === "Ongoing" && (
+                    <Link to="/exampage">
                     <button className="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-700">
                       Continue
                     </button>
+                    </Link>
                   )}
                   {exam.status === "Completed" && (
                     <button className="px-3 py-1 bg-gray-500 text-white rounded hover:bg-gray-700">

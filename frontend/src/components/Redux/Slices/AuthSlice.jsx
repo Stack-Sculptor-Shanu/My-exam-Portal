@@ -33,6 +33,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { setFormData, setError, setIsLoggedIn, togglePasswordVisibility, resetState } =
-  authSlice.actions;
+export const { setFormData, setError, setIsLoggedIn, togglePasswordVisibility, resetState } = authSlice.actions;
 export default authSlice.reducer;
