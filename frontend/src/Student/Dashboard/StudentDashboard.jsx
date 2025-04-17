@@ -24,7 +24,7 @@ const StudentDashboard = () => {
     { id: "Result", icon: <LucideNotepadText size={24} />, label: "Result", component: <Result /> },
     { id: "Resources", icon: <FaBookBookmark size={24} />, label: "Resources", component: <Resources /> },
     { id: "Notifications", icon: <Bell size={24} />, label: "Notification", component: <Notifications /> },
-    { id: "ProfileSetting", icon: <FaRegFileAlt size={24} />, label: "Profile Setting", component: <ProfileSetting /> },
+    { id: "ProfileSetting", icon: <FaRegFileAlt size={24} />, label: " Settings", component: <ProfileSetting /> },
   ];
 
   return (

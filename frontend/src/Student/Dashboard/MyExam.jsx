@@ -1,7 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Result from "./Result";
 
 const MyExam = () => {
+
+  const navigate = useNavigate();
   // Sample Exam Data
   const exams = [
     {
@@ -32,6 +35,9 @@ const MyExam = () => {
       status: "Completed",
     },
   ];
+  const handleClick = () => {
+    navigate(<Result/>);
+  };
 
   return (
     <div className="p-6  bg-gray-50   flex-col flex ">
@@ -76,14 +82,15 @@ const MyExam = () => {
                     </button>
                   )}
                   {exam.status === "Ongoing" && (
-                    <Link to="/exampage">
+                    <Link to="/instructions">
                     <button className="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-700">
                       Continue
                     </button>
                     </Link>
                   )}
                   {exam.status === "Completed" && (
-                    <button className="px-3 py-1 bg-gray-500 text-white rounded hover:bg-gray-700">
+
+                    <button className="px-3 py-1 bg-gray-500 text-white rounded hover:bg-gray-700" onClick={handleClick}>
                       View Result
                     </button>
                   )}

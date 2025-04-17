@@ -5,6 +5,7 @@ import ExamManagement from './exammanagement/ExamManagement';
 import ResultsAndReports from './Resultsandreports/ResultsAndReports';
 import Support from './support/Support';
 import Settings from './setting/Settings';
+import ScheduledExams from './Examform/ScheduledExams';
 // import other components...
 
 export default function MainContent({ section }) {
@@ -13,6 +14,7 @@ export default function MainContent({ section }) {
     case 'exams': return <ExamManagement />;
     case 'results': return <ResultsAndReports />;
     case 'settings': return <Settings />;
+    case 'ScheduledExams': return <ScheduledExams />;
     case 'support': return <Support />;
     default: return <Overview />;
   }
