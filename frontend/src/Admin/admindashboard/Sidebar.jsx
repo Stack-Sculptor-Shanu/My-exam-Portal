@@ -28,7 +28,7 @@ export default function Sidebar({ setActiveSection }) {
         key={item.key}
         onClick={() => setActiveSection(item.key)}
         className={`flex items-center space-x-4 w-full text-left px-3 py-2 rounded-lg transition-all 
-          ${activeSection === item.key 
+          ${setActiveSection === item.key 
             ? 'bg-gray-600 text-white' 
             : 'hover:bg-gray-100 dark:hover:bg-gray-700'}`}
       >

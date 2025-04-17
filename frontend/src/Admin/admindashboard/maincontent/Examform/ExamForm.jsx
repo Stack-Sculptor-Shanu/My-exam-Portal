@@ -28,7 +28,7 @@ const ExamForm = () => {
       setFormData(prev => ({
         ...prev,
         [name]: value,
-        title: '' // reset title when batch changes
+        title: '' 
       }));
     } else {
       setFormData(prev => ({

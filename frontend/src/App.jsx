@@ -22,6 +22,7 @@ import StudentDashboard from './Student/Dashboard/StudentDashboard'
 import HowItWorks from './components/HowItWorks';
 import FlowChart from './Flowchart';
 import PRforExam from './components/LiveExams/PrivateRoute/PRforExams';
+import PRforLoginReg from './components/LiveExams/PrivateRoute/PRforLoginReg';
 
 const App = () => {
     const route = createBrowserRouter([
@@ -47,15 +48,21 @@ const App = () => {
                 },
                 {
                     path:'/login',
-                    element:<Login/>
+                    element:<PRforLoginReg>
+                        <Login/>
+                    </PRforLoginReg>
                 },
                 {
                     path:'/adminReg',
-                    element:<AdminReg/>
+                    element:<PRforLoginReg>
+                        <AdminReg/>
+                    </PRforLoginReg>
                 },
                 {
                     path:'studentReg',
-                    element:<StudentReg/>
+                    element:<PRforLoginReg>
+                        <StudentReg/>
+                    </PRforLoginReg>
                 },
                 {
                     path:'/examlists',
