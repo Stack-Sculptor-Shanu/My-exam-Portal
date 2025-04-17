@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Cookies from 'js-cookie'
 import {
   setCurrentQuestion,
   setSelectedAnswer,
@@ -123,7 +124,7 @@ const LiveExams = () => {
     if (document.fullscreenElement) {
       document.exitFullscreen();
     }
-    localStorage.removeItem("token");
+    Cookies.remove('examID')
   };
 
   const handleCancelEndTest = () => {

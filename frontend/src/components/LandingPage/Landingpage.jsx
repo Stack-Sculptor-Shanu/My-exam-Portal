@@ -139,9 +139,6 @@ const Landingpage = () => {
   ))}
 </div>
       </motion.section>
-
-
-
       {/* TESTIMONIALS */}
       <motion.section
         className="py-20 px-5 md:px-20 bg-gray-100 dark:bg-gray-800"

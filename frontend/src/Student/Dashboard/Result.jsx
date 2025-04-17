@@ -58,7 +58,10 @@ const Result = () => {
       {/* Subject Result Boxes */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
         {Object.keys(examResults).map((subject, idx) => (
-          <div key={idx} className="bg-white rounded-lg shadow-md p-5 border-l-4 border-blue-500">
+          <div key={idx}
+           className={`bg-white rounded-lg shadow-md p-5 border-l-4 border-blue-500,
+           ${expandedSubject === subject ? "" : "h-[80px]"}`}
+           >
             <div
               onClick={() => toggleSubject(subject)}
               className="cursor-pointer flex justify-between items-center"

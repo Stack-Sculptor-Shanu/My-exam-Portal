@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FaCamera, FaExclamationCircle, FaBan } from "react-icons/fa"; 
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie'
 
 const Instruction = () => {
   const [language, setLanguage] = useState("English"); 
@@ -15,6 +16,7 @@ const Instruction = () => {
   };
 
   const navigate = useNavigate();
+  const exam_id = 'MERN-2025-NASA'
 
   const handleSubmit = () => {
     const navbar = document.getElementById("navigationbar");
@@ -28,6 +30,7 @@ const Instruction = () => {
         } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
             document.documentElement.msRequestFullscreen();
         }
+        Cookies.set('examID',exam_id)
     navigate('/exampage');
   };
 

@@ -21,6 +21,7 @@ import Private from './components/LiveExams/PrivateRoute/Private'
 import StudentDashboard from './Student/Dashboard/StudentDashboard'
 import HowItWorks from './components/HowItWorks';
 import FlowChart from './Flowchart';
+import PRforExam from './components/LiveExams/PrivateRoute/PRforExams';
 
 const App = () => {
     const route = createBrowserRouter([
@@ -68,9 +69,9 @@ const App = () => {
                 },
                 {
                     path:'/exampage',
-                    element:<Private>
-                        <LiveExams/>
-                    </Private>
+                    element:<PRforExam>
+                            <LiveExams/>
+                        </PRforExam>
                 },
                 {
                     path:'/aDashboard',
