@@ -1,14 +1,36 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FiTrash2 } from 'react-icons/fi';
+import Cookies from 'js-cookie'
+import axios from 'axios'
 
 export default function UserManagement() {
   const [selectedCard, setSelectedCard] = useState(null);
-  const [userList, setUserList] = useState([
-    { name: 'Alice Johnson', email: 'alice@example.com', status: 'Active' },
-    { name: 'Mark Smith', email: 'mark@example.com', status: 'Inactive' },
-    { name: 'Emma Davis', email: 'emma@example.com', status: 'Active' },
-    { name: 'Liam White', email: 'liam@example.com', status: 'Active' }
-  ]);
+  const [userList, setUserList] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = Cookies.get('user_role');
+        const res = await axios.get('/all-students', {
+          withCredentials:true
+        });
+        console.log('fetched users: ', res.data)
+  
+        if (Array.isArray(res.data)) {
+          setUserList(res.data);
+        } else if (Array.isArray(res.data.data)) {
+          setUserList(res.data.data);
+        } else {
+          console.error("Unexpected API response:", res.data);
+          setUserList([]); 
+        }
+  
+      } catch (err) {
+        console.error('Error fetching users:', err);
+      }
+    };
+    fetchData();
+  }, []); 
 
   const newRegistrations = [
     { name: 'Nina Brooks', email: 'nina@example.com', registered: '2025-04-01' },
@@ -30,13 +52,14 @@ export default function UserManagement() {
   };
 
   const filteredUsers =
-    selectedCard === 'Total Users'
-      ? userList
-      : selectedCard === 'Active Users'
-      ? userList.filter((user) => user.status === 'Active')
-      : selectedCard === 'Inactive Users'
-      ? userList.filter((user) => user.status === 'Inactive')
-      : [];
+  selectedCard === 'Total Users'
+    ? userList.filter(user => user.role === 'user')
+    : selectedCard === 'Active Users'
+    ? userList.filter((user) => user.status === 'Active' && user.role === 'user')
+    : selectedCard === 'Inactive Users'
+    ? userList.filter((user) => user.status === 'Inactive' && user.role === 'user')
+    : [];
+
 
   return (
     <div className="p-6 space-y-6 overflow-auto scrollbar-none">

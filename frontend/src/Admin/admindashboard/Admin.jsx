@@ -8,7 +8,7 @@ export default function Admin() {
 
   return (
     <div className="flex h-screen">
-      <Sidebar setActiveSection={setActiveSection} />
+      <Sidebar setActiveSection={setActiveSection} currentSection={activeSection} />
       <div className="flex-1 flex flex-col">
         <Nav/>
         <MainContent section={activeSection} />
