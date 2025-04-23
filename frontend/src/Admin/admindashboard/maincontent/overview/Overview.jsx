@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Line, Bar, Pie } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -11,6 +11,7 @@ import {
   Tooltip,
   Legend
 } from 'chart.js';
+import axiosInstance from '../../../../Utilities/axiosInstance';
 
 ChartJS.register(
   LineElement,
@@ -26,19 +27,32 @@ ChartJS.register(
 export default function Overview() {
   const [activeCard, setActiveCard] = useState(null);
   const [cancelExamId, setCancelExamId] = useState('');
+  const [registeredUsers, setRegisteredUsers] = useState([]);
+
+useEffect(() => {
+  const fetchUsers = async () => {
+    try {
+      const res = await axiosInstance.get('/all-students', {
+        withCredentials: true
+      });
+
+      const onlyUsers = res.data.allusers.filter((user) => user.role === 'user');
+      setRegisteredUsers(onlyUsers);
+    } catch (error) {
+      console.error('Error fetching users:', error);
+    }
+  };
+
+  fetchUsers();
+}, []);
+
 
   const stats = [
-    { label: 'Total Registered Users', value: 1500 },
+    { label: 'Total Registered Users', value: registeredUsers.length },
     { label: 'Total Exams Conducted', value: 120 },
     { label: 'Active Exams', value: 5 },
     { label: 'Total Submissions', value: 3400 },
     { label: 'Cancel Exam', value: '' } 
-  ];
-
-  const users = [
-    { name: 'Jishu', email: 'jishu@gmail.com', registered: '2024-10-01' },
-    { name: 'Shanu', email: 'shanu@gmail.com', registered: '2024-11-15' },
-    { name: 'Biswajit', email: 'biswa@gmail.com', registered: '2024-12-02' }
   ];
 
   const examsConducted = [
@@ -141,11 +155,11 @@ export default function Overview() {
               </tr>
             </thead>
             <tbody>
-              {users.map((user, index) => (
+              {registeredUsers.map((user, index) => (
                 <tr key={index} className="hover:bg-gray-50 dark:hover:bg-gray-700">
                   <td className="px-4 py-2 border dark:border-gray-600">{user.name}</td>
                   <td className="px-4 py-2 border dark:border-gray-600">{user.email}</td>
-                  <td className="px-4 py-2 border dark:border-gray-600">{user.registered}</td>
+                  <td className="px-4 py-2 border dark:border-gray-600">{new Date(user.createdAt).toLocaleDateString('en-GB')}</td>
                 </tr>
               ))}
             </tbody>
@@ -153,7 +167,6 @@ export default function Overview() {
         </div>
       )}
 
-      {/* Exams Conducted Table */}
       {activeCard === 'Total Exams Conducted' && (
         <div className="bg-white dark:bg-gray-800 dark:text-white rounded-xl shadow-md p-6">
           <h3 className="text-lg font-semibold mb-4">Exams Conducted</h3>

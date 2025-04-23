@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FiTrash2 } from 'react-icons/fi';
-import Cookies from 'js-cookie'
-import axios from 'axios'
+import axiosInstance from '../../../../Utilities/axiosInstance';
 
 export default function UserManagement() {
   const [selectedCard, setSelectedCard] = useState(null);
@@ -10,21 +9,16 @@ export default function UserManagement() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const token = Cookies.get('user_role');
-        const res = await axios.get('/all-students', {
+        const res = await axiosInstance.get('/all-students', {
           withCredentials:true
         });
-        console.log('fetched users: ', res.data)
   
-        if (Array.isArray(res.data)) {
-          setUserList(res.data);
-        } else if (Array.isArray(res.data.data)) {
-          setUserList(res.data.data);
+        if (Array.isArray(res.data.allusers)) {
+          setUserList(res.data.allusers);
         } else {
           console.error("Unexpected API response:", res.data);
-          setUserList([]); 
+          setUserList([]);
         }
-  
       } catch (err) {
         console.error('Error fetching users:', err);
       }
@@ -51,15 +45,19 @@ export default function UserManagement() {
     setUserList(updated);
   };
 
-  const filteredUsers =
-  selectedCard === 'Total Users'
-    ? userList.filter(user => user.role === 'user')
-    : selectedCard === 'Active Users'
-    ? userList.filter((user) => user.status === 'Active' && user.role === 'user')
-    : selectedCard === 'Inactive Users'
-    ? userList.filter((user) => user.status === 'Inactive' && user.role === 'user')
-    : [];
-
+  const getFilteredUsers = () => {
+    switch (selectedCard) {
+      case 'Total Users':
+        return userList.filter(user => user.role === 'user');
+      case 'Active Users':
+        return userList.filter(user => user.role === 'user' && user.status === 'Active');
+      case 'Inactive Users':
+        return userList.filter(user => user.role === 'user' && user.status === 'Inactive');
+      default:
+        return [];
+    }
+  };
+  const filteredUsers = getFilteredUsers();
 
   return (
     <div className="p-6 space-y-6 overflow-auto scrollbar-none">

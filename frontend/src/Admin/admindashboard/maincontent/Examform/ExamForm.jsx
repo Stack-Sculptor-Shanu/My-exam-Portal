@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import axiosInstance from '../../../../Utilities/axiosInstance';
 
 const ExamForm = () => {
   const [formData, setFormData] = useState({
@@ -38,11 +39,19 @@ const ExamForm = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    // Add your API logic here
+  
+    try {
+      const response = await axiosInstance.post('/create-exam',formData,{withCredentials: true});
+      alert('✅ Exam created successfully!');
+      navigate('/createquestion');
+    } catch (error) {
+      console.error('❌ Exam creation failed:', error);
+      alert('Failed to create the exam. Please check your credentials or try again later.');
+    }
   };
+  
 
   return (
     <div className="max-w-2xl mx-auto mt-10 p-6 border rounded-2xl shadow-lg bg-white">
